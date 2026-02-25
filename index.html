@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+        <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
@@ -48,7 +48,7 @@
     .photo-list {
       display: flex;
       flex-direction: column;
-      gap: 64px;
+      gap: 120px; /* 1. MAIS ESPAÇO ENTRE AS FOTOS */
     }
 
     figure {
@@ -59,12 +59,18 @@
     figure img {
       width: 100%;
       display: block;
+      cursor: zoom-in; /* 2. SÍMBOLO DE LUPA AO PASSAR O MOUSE */
+      transition: opacity 0.2s ease;
+    }
+
+    figure img:hover {
+      opacity: 0.9; /* Leve efeito ao passar o mouse */
     }
 
     figcaption {
       font-family: 'Courier New', Courier, monospace;
       font-size: 11px;
-      color: #555555;
+      color: #000000; /* 3. LEGENDAS TOTALMENTE PRETAS */
       margin-top: 10px;
       line-height: 1.5;
     }
@@ -74,7 +80,7 @@
       display: flex;
       justify-content: flex-end;
       gap: 12px;
-      margin-top: 64px;
+      margin-top: 100px;
     }
 
     .pagination button {
@@ -92,26 +98,49 @@
     .pagination button:hover {
       background-color: #333333;
     }
+
+    /* OVERLAY DE ZOOM (LIGHTBOX) */
+    .lightbox {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(255, 255, 255, 0.98);
+      align-items: center;
+      justify-content: center;
+      cursor: zoom-out;
+    }
+
+    .lightbox img {
+      max-width: 95vw;
+      max-height: 95vh;
+      object-fit: contain;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1) !important;
+    }
   </style>
 </head>
 <body>
 
   <div class="container">
 
-    <!-- HEADER -->
     <header>
       <h1>@oleotostes</h1>
     </header>
 
-    <!-- PHOTO LIST -->
     <div class="photo-list" id="photo-list"></div>
 
-    <!-- PAGINATION -->
     <div class="pagination">
       <button id="btn-prev" onclick="changePage(-1)">← Página anterior</button>
       <button id="btn-next" onclick="changePage(1)">Próxima página →</button>
     </div>
 
+  </div>
+
+  <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+    <img id="lightbox-img" src="" alt="Zoom da imagem">
   </div>
 
   <script>
@@ -180,11 +209,19 @@
       list.innerHTML = '';
 
       photos.forEach(function(photo) {
+        // Truque: Se não houver link na foto, o código pula e não mostra a imagem quebrada
+        if (photo.src === "") return; 
+
         const figure = document.createElement('figure');
 
         const img = document.createElement('img');
         img.src = photo.src;
         img.alt = photo.caption;
+        
+        // Ativa o clique na imagem para o Zoom
+        img.onclick = function() {
+          openLightbox(photo.src);
+        };
 
         const caption = document.createElement('figcaption');
         caption.textContent = photo.caption;
@@ -202,6 +239,18 @@
       currentPage += direction;
       window.scrollTo({ top: 0, behavior: 'smooth' });
       renderPage();
+    }
+
+    // Funções do Zoom
+    function openLightbox(src) {
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImg = document.getElementById('lightbox-img');
+      lightboxImg.src = src;
+      lightbox.style.display = 'flex';
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').style.display = 'none';
     }
 
     renderPage();
