@@ -1,4 +1,4 @@
-        <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
@@ -48,7 +48,7 @@
     .photo-list {
       display: flex;
       flex-direction: column;
-      gap: 120px; /* 1. MAIS ESPAÇO ENTRE AS FOTOS */
+      gap: 120px; /* MAIS ESPAÇO ENTRE AS FOTOS */
     }
 
     figure {
@@ -56,21 +56,25 @@
       padding: 0;
     }
 
-    figure img {
+    /* Nova regra para vídeos terem a mesma largura das fotos */
+    figure img, figure video {
       width: 100%;
       display: block;
-      cursor: zoom-in; /* 2. SÍMBOLO DE LUPA AO PASSAR O MOUSE */
+    }
+
+    figure img {
+      cursor: zoom-in; /* SÍMBOLO DE LUPA AO PASSAR O MOUSE */
       transition: opacity 0.2s ease;
     }
 
     figure img:hover {
-      opacity: 0.9; /* Leve efeito ao passar o mouse */
+      opacity: 0.9;
     }
 
     figcaption {
       font-family: 'Courier New', Courier, monospace;
       font-size: 11px;
-      color: #000000; /* 3. LEGENDAS TOTALMENTE PRETAS */
+      color: #000000;
       margin-top: 10px;
       line-height: 1.5;
     }
@@ -154,12 +158,12 @@
         caption: ""
       },
       {
-        src: "Meu apartamento(1).jpg",
+        src: "Meu apartamento (1).jpg",
         caption: ""
       },
       {
-        src: "",
-        caption: ""
+        src: "bina-e-eu.mp4", /* Adicionei o vídeo aqui renomeado! */
+        caption: "Bina e eu" 
       },
       {
         src: "",
@@ -209,24 +213,33 @@
       list.innerHTML = '';
 
       photos.forEach(function(photo) {
-        // Truque: Se não houver link na foto, o código pula e não mostra a imagem quebrada
         if (photo.src === "") return; 
 
         const figure = document.createElement('figure');
+        let media;
 
-        const img = document.createElement('img');
-        img.src = photo.src;
-        img.alt = photo.caption;
-        
-        // Ativa o clique na imagem para o Zoom
-        img.onclick = function() {
-          openLightbox(photo.src);
-        };
+        // Verifica se é vídeo MP4
+        if (photo.src.toLowerCase().endsWith('.mp4')) {
+          media = document.createElement('video');
+          media.src = photo.src;
+          media.autoplay = true; 
+          media.loop = true;     
+          media.muted = true;    
+          media.playsInline = true; 
+        } else {
+          // Se for imagem normal
+          media = document.createElement('img');
+          media.src = photo.src;
+          media.alt = photo.caption;
+          media.onclick = function() {
+            openLightbox(photo.src);
+          };
+        }
 
         const caption = document.createElement('figcaption');
         caption.textContent = photo.caption;
 
-        figure.appendChild(img);
+        figure.appendChild(media);
         figure.appendChild(caption);
         list.appendChild(figure);
       });
