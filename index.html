@@ -18,23 +18,23 @@
       background-color: #FFFFFF;
       color: #000000;
       min-height: 100vh;
-      /* Adicionado para segurar a tattoo e não quebrar a tela pro lado */
+      /* Configurações para segurar a imagem de fundo */
       position: relative; 
       overflow-x: hidden; 
     }
 
-    /* --- ⚡ TATTOO DE FUNDO CENTRALIZADA ⚡ --- */
+    /* --- ⚡ ESTILO DA TATTOO DE FUNDO ⚡ --- */
     .background-sketch {
-      position: fixed; 
+      position: fixed; /* Fica parada no fundo */
       top: 50%;
       left: 50%;
-      transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%); /* Centraliza na tela */
       width: 85%; 
       max-width: 700px; 
-      z-index: -1; /* Joga a tattoo pro fundo da parede */
-      opacity: 0.15; /* Deixa transparente (aumente se quiser mais escuro) */
-      pointer-events: none; 
-      filter: grayscale(100%) contrast(110%);
+      z-index: -1; /* Joga para trás de tudo */
+      opacity: 0.15; /* Bem clarinho (marca d'água). Aumente se quiser mais forte. */
+      pointer-events: none; /* Não atrapalha o clique nas fotos */
+      filter: grayscale(100%) contrast(110%); /* Garante o look preto e branco cru */
     }
 
     ::selection {
@@ -46,7 +46,7 @@
       max-width: 680px;
       margin: 0 auto;
       padding: 32px 24px 80px 24px;
-      /* Adicionado para garantir que o texto e as fotos fiquem na frente da tattoo */
+      /* Garante que as fotos fiquem NA FRENTE do desenho do fundo */
       position: relative;
       z-index: 2;
     }
@@ -148,7 +148,7 @@
 </head>
 <body>
 
-  <img class="background-sketch" src="background-sketch.png" alt="">
+  <img class="background-sketch" src="background-sketch1.png" alt="">
 
   <div class="container">
 
@@ -184,7 +184,7 @@
         caption: ""
       },
       {
-        src: "", /* Adicionei o vídeo aqui renomeado! */
+        src: "", /* O vídeo */
         caption: "" 
       },
       {
