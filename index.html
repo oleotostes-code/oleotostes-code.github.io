@@ -18,21 +18,6 @@
       background-color: #FFFFFF;
       color: #000000;
       min-height: 100vh;
-      position: relative; 
-      overflow-x: hidden; 
-    }
-
-    /* --- ⚡ TATTOO DE FUNDO VÍVIDA E GIGANTE ⚡ --- */
-    .background-sketch {
-      position: fixed; /* Fica parada no fundo enquanto o site rola */
-      top: 0;
-      left: 0;
-      width: 100vw;  /* Ocupa 100% da largura da tela */
-      height: 100vh; /* Ocupa 100% da altura da tela */
-      object-fit: cover; /* Estica o desenho para cobrir tudo sem deformar */
-      z-index: -1; /* Joga para trás de tudo */
-      opacity: 0.9; /* QUASE 100% PRETO. Se quiser mais claro, diminua esse número. */
-      pointer-events: none; /* Não atrapalha o clique */
     }
 
     ::selection {
@@ -44,8 +29,6 @@
       max-width: 680px;
       margin: 0 auto;
       padding: 32px 24px 80px 24px;
-      position: relative;
-      z-index: 2;
     }
 
     /* HEADER */
@@ -65,7 +48,7 @@
     .photo-list {
       display: flex;
       flex-direction: column;
-      gap: 120px;
+      gap: 120px; /* MAIS ESPAÇO ENTRE AS FOTOS */
     }
 
     figure {
@@ -73,13 +56,14 @@
       padding: 0;
     }
 
+    /* Nova regra para vídeos terem a mesma largura das fotos */
     figure img, figure video {
       width: 100%;
       display: block;
     }
 
     figure img {
-      cursor: zoom-in;
+      cursor: zoom-in; /* SÍMBOLO DE LUPA AO PASSAR O MOUSE */
       transition: opacity 0.2s ease;
     }
 
@@ -144,8 +128,6 @@
 </head>
 <body>
 
-  <img class="background-sketch" src="tattoo-final.png" alt="">
-
   <div class="container">
 
     <header>
@@ -180,7 +162,7 @@
         caption: ""
       },
       {
-        src: "", 
+        src: "", /* Adicionei o vídeo aqui renomeado! */
         caption: "" 
       },
       {
@@ -236,6 +218,7 @@
         const figure = document.createElement('figure');
         let media;
 
+        // Verifica se é vídeo MP4
         if (photo.src.toLowerCase().endsWith('.mp4')) {
           media = document.createElement('video');
           media.src = photo.src;
@@ -244,6 +227,7 @@
           media.muted = true;    
           media.playsInline = true; 
         } else {
+          // Se for imagem normal
           media = document.createElement('img');
           media.src = photo.src;
           media.alt = photo.caption;
@@ -270,6 +254,7 @@
       renderPage();
     }
 
+    // Funções do Zoom
     function openLightbox(src) {
       const lightbox = document.getElementById('lightbox');
       const lightboxImg = document.getElementById('lightbox-img');
