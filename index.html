@@ -18,23 +18,21 @@
       background-color: #FFFFFF;
       color: #000000;
       min-height: 100vh;
-      /* Configurações para segurar a imagem de fundo */
       position: relative; 
       overflow-x: hidden; 
     }
 
-    /* --- ⚡ ESTILO DA TATTOO DE FUNDO ⚡ --- */
+    /* --- ⚡ TATTOO DE FUNDO VÍVIDA E GIGANTE ⚡ --- */
     .background-sketch {
-      position: fixed; /* Fica parada no fundo */
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%); /* Centraliza na tela */
-      width: 85%; 
-      max-width: 700px; 
+      position: fixed; /* Fica parada no fundo enquanto o site rola */
+      top: 0;
+      left: 0;
+      width: 100vw;  /* Ocupa 100% da largura da tela */
+      height: 100vh; /* Ocupa 100% da altura da tela */
+      object-fit: cover; /* Estica o desenho para cobrir tudo sem deformar */
       z-index: -1; /* Joga para trás de tudo */
-      opacity: 0.15; /* Bem clarinho (marca d'água). Aumente se quiser mais forte. */
-      pointer-events: none; /* Não atrapalha o clique nas fotos */
-      filter: grayscale(100%) contrast(110%); /* Garante o look preto e branco cru */
+      opacity: 0.9; /* QUASE 100% PRETO. Se quiser mais claro, diminua esse número. */
+      pointer-events: none; /* Não atrapalha o clique */
     }
 
     ::selection {
@@ -46,7 +44,6 @@
       max-width: 680px;
       margin: 0 auto;
       padding: 32px 24px 80px 24px;
-      /* Garante que as fotos fiquem NA FRENTE do desenho do fundo */
       position: relative;
       z-index: 2;
     }
@@ -68,7 +65,7 @@
     .photo-list {
       display: flex;
       flex-direction: column;
-      gap: 120px; /* MAIS ESPAÇO ENTRE AS FOTOS */
+      gap: 120px;
     }
 
     figure {
@@ -76,14 +73,13 @@
       padding: 0;
     }
 
-    /* Nova regra para vídeos terem a mesma largura das fotos */
     figure img, figure video {
       width: 100%;
       display: block;
     }
 
     figure img {
-      cursor: zoom-in; /* SÍMBOLO DE LUPA AO PASSAR O MOUSE */
+      cursor: zoom-in;
       transition: opacity 0.2s ease;
     }
 
@@ -148,7 +144,7 @@
 </head>
 <body>
 
-  <img class="background-sketch" src="background-sketch1.png" alt="">
+  <img class="background-sketch" src="tattoo-final.png" alt="">
 
   <div class="container">
 
@@ -184,7 +180,7 @@
         caption: ""
       },
       {
-        src: "", /* O vídeo */
+        src: "", 
         caption: "" 
       },
       {
@@ -240,7 +236,6 @@
         const figure = document.createElement('figure');
         let media;
 
-        // Verifica se é vídeo MP4
         if (photo.src.toLowerCase().endsWith('.mp4')) {
           media = document.createElement('video');
           media.src = photo.src;
@@ -249,7 +244,6 @@
           media.muted = true;    
           media.playsInline = true; 
         } else {
-          // Se for imagem normal
           media = document.createElement('img');
           media.src = photo.src;
           media.alt = photo.caption;
@@ -276,7 +270,6 @@
       renderPage();
     }
 
-    // Funções do Zoom
     function openLightbox(src) {
       const lightbox = document.getElementById('lightbox');
       const lightboxImg = document.getElementById('lightbox-img');
