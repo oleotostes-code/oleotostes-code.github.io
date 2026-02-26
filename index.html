@@ -18,6 +18,23 @@
       background-color: #FFFFFF;
       color: #000000;
       min-height: 100vh;
+      /* Adicionado para segurar a tattoo e não quebrar a tela pro lado */
+      position: relative; 
+      overflow-x: hidden; 
+    }
+
+    /* --- ⚡ TATTOO DE FUNDO CENTRALIZADA ⚡ --- */
+    .background-sketch {
+      position: fixed; 
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 85%; 
+      max-width: 700px; 
+      z-index: -1; /* Joga a tattoo pro fundo da parede */
+      opacity: 0.15; /* Deixa transparente (aumente se quiser mais escuro) */
+      pointer-events: none; 
+      filter: grayscale(100%) contrast(110%);
     }
 
     ::selection {
@@ -29,6 +46,9 @@
       max-width: 680px;
       margin: 0 auto;
       padding: 32px 24px 80px 24px;
+      /* Adicionado para garantir que o texto e as fotos fiquem na frente da tattoo */
+      position: relative;
+      z-index: 2;
     }
 
     /* HEADER */
@@ -127,6 +147,8 @@
   </style>
 </head>
 <body>
+
+  <img class="background-sketch" src="background-sketch.png" alt="">
 
   <div class="container">
 
